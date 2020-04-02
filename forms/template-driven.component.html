@@ -1,0 +1,76 @@
+<form name="loginForm" #rForm="ngForm">
+  <ion-row>
+    <ion-col size="12" class="padding-0">
+      <ion-input type="text" class="txt_medium inputFld" placeholder="Full Name" name="name" [(ngModel)]="regData.name"
+        #fname="ngModel" required></ion-input>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <div class="txtDanger" *ngIf="fname.errors?.required && fname.touched">
+        Name is required.
+      </div>
+      <div class="txtDanger" *ngIf="errDtc(regData.name)">
+        Only white space are not allowed.
+      </div>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <ion-input type="tel" class="txt_medium inputFld" placeholder="Phone number" name="phone"
+        [(ngModel)]="regData.phone" #userphone="ngModel" minlength="5" maxlength="20" required>
+      </ion-input>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <div class="txtDanger" *ngIf="userphone.errors?.required && userphone.touched">
+        Phone number is required.
+      </div>
+      <div class="txtDanger" *ngIf="userphone.errors?.minlength && userphone.touched">
+        Phone number must be minimum 5 character.
+      </div>
+      <div class="txtDanger" *ngIf="userphone.errors?.maxlength && userphone.touched">
+        Phone number must be within 20 character.
+      </div>
+      <div class="txtDanger" *ngIf="errDtcp(regData.phone)">
+        Only white space are not allowed.
+      </div>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <ion-input type="email" class="txt_medium inputFld" placeholder="Email address" name="email"
+        [(ngModel)]="regData.email" #userEmail="ngModel" email required></ion-input>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <div class="txtDanger" *ngIf="userEmail.errors?.required && userEmail.touched">
+        Email address is required.
+      </div>
+      <div class="txtDanger" *ngIf="userEmail.errors?.email && userEmail.touched">
+        Email must be valid.
+      </div>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <ion-input type="password" class="txt_medium inputFld" placeholder="Password" name="pass"
+        [(ngModel)]="regData.pass" #userPass="ngModel" required minlength="6"></ion-input>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <div class="txtDanger" *ngIf="userPass.errors?.required && userPass.touched">
+        Password is required.
+      </div>
+      <div class="txtDanger" *ngIf="userPass.errors?.minlength && userPass.touched">
+        Password must be minimum 6 character.
+      </div>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <ion-input type="password" class="txt_medium inputFld" placeholder="Confirm Password" name="cpass"
+        [(ngModel)]="regData.cpass" #conPass="ngModel" required equalTo="userPass">
+      </ion-input>
+    </ion-col>
+    <ion-col size="12" class="padding-0">
+      <div class="txtDanger" *ngIf="conPass.errors?.required && conPass.touched">
+        Confirm Password is required.
+      </div>
+      <div class="txtDanger" *ngIf="regData.pass != regData.cpass && conPass.touched && !conPass.errors?.required">
+        Confirm Password is not matching.
+      </div>
+    </ion-col>
+  </ion-row>
+</form>
+<ion-button expand="block" class="btnTxt noShadow" (click)="register()"
+  [disabled]="rForm.invalid || spaceErr || spaceErrp || regData.pass != regData.cpass" color="secondary"
+  style="height: 45px;">
+  Submit</ion-button>

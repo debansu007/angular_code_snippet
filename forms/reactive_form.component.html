@@ -1,0 +1,99 @@
+<form [formGroup]="businessForm">
+
+    <ion-list no-margin>
+
+        <ion-item class="appointment_label">
+            <p>Name</p>
+        </ion-item>
+        <ion-item [ngClass]="{'error': checkField('name')}" style="font-size:14px;">
+            <ion-input type="text" placeholder="ex* Reservation, appointment, booking" formControlName="name">
+            </ion-input>
+        </ion-item>
+
+        <ion-item class="appointment_label" style="margin: 10px 0 0px;">
+            <p>Description</p>
+        </ion-item>
+        <ion-item [ngClass]="{'error': checkField('description')}" class="textarea-box">
+            <ion-textarea #myInput maxLength="100" placeholder="Enter text here*" formControlName="description"
+                (keyup)="resize()"></ion-textarea>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-grid no-padding class="hour_duration">
+        <ion-row>
+            <ion-col col-3>
+                <ion-item class="appointment_label">
+                    <p>$/hour</p>
+                </ion-item>
+                <ion-item [ngClass]="{'error': checkField('costPerHour')}" class="fontsize18">
+                    <ion-input type="tel" placeholder="" formControlName="costPerHour"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col col-4>
+                <ion-item class="appointment_label">
+                    <p>$/after hour</p>
+                </ion-item>
+                <ion-item [ngClass]="{'error': checkField('costAfterHour')}" class="fontsize18">
+                    <ion-input type="tel" placeholder="" formControlName="costAfterHour"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col col-5>
+                <ion-item class="appointment_label">
+                    <p>Duration</p>
+                </ion-item>
+                <ion-item [ngClass]="{'error': checkField('duration')}" class="fontsize18">
+                    <!-- <ion-select formControlName="duration" interface="popover">
+              <ion-option value="60">60 mins</ion-option>
+            </ion-select> -->
+                    <ion-input type="text" placeholder="" value="60 mins" [readonly]="true"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid no-padding class="set_reminder">
+        <ion-row>
+            <ion-col col-7>
+                <ion-item>
+                    <p>Set Reminders</p>
+                </ion-item>
+            </ion-col>
+            <ion-col col-5 style="padding-left:10px;">
+                <button ion-button icon-only clear style="color: #167AFF" (click)="addReminder()">
+                    <ion-icon style="padding: 0 10px;" name="ios-add-circle-outline"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid no-padding class="reminder_list" formArrayName="reminder">
+        <ion-row *ngFor="let rem of businessForm.controls.reminder.controls; let i=index">
+            <ion-col col-3 text-right style="padding-top: 5px;">
+                <span>{{i + 1}}.&nbsp;&nbsp;</span>
+            </ion-col>
+            <ion-col col-5 [formGroupName]="i">
+                <ion-item>
+                    <!-- <ion-input type="text" formControlName="minutes"></ion-input> -->
+                    <ion-select formControlName="minutes" interface="popover">
+                        <ion-option value="15">15 mins</ion-option>
+                        <ion-option value="30">30 mins</ion-option>
+                        <ion-option value="60">60 mins</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+            <ion-col col-3 class="del-reminder" offset-1>
+                <img style="width: 16px" src="assets/icon/appointment-cancel.png" alt="" (click)="removeReminder(i)">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <button ion-button full class="save-btn" (click)="onSave()">Save & Continue</button>
+
+
+    <button ion-button full clear (click)="onDelete()" color="danger" style="margin-top: 25px;"
+        *ngIf="navParams.data.appointment">Delete Appointment</button>
+
+
+
+</form>
