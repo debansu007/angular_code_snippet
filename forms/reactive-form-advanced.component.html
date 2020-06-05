@@ -1,0 +1,124 @@
+<div class="custom-col-40">
+    <form name="signUpForm" [formGroup]="signupForm" (ngSubmit)="signup()">
+        <div class="signu-log-in-form-body">
+            <div class="form-body">
+                <div class="form-body-hdn">
+                    <h3>Signup</h3>
+                </div>
+                <div class="form-body-aria">
+                    <div class="form-group">
+                        <label>
+                            Name
+                        </label>
+                        <div class="input-aria full-input">
+                            <input type="text" name="name" formControlName="name" />
+                        </div>
+                        <span *ngIf="signupForm.controls.name.touched && signupForm.controls.name.errors?.required">Name
+                            is required</span>
+                        <span *ngIf="signupForm.controls.name.touched && (signupForm.controls.name.errors?.whiteSpace && !signupForm.controls.name.errors?.required)">Name
+                            can not be only space </span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Email
+                        </label>
+                        <div class="input-aria full-input">
+                            <input type="email" name="mail" formControlName="email" />
+                        </div>
+                        <span
+                            *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.required">Email
+                            is required</span>
+                        <span *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.email">Valid
+                            email is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Username
+                        </label>
+                        <div class="input-aria full-input">
+                            <input type="email" name="mail" formControlName="userName" />
+                        </div>
+                        <span
+                            *ngIf="signupForm.controls.userName.touched && signupForm.controls.userName.errors?.required">Username
+                            is required</span>
+                        <span
+                            *ngIf="signupForm.controls.userName.touched && signupForm.controls.userName.errors?.cannotContainSpace">Username
+                            can not contain space</span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Password
+                        </label>
+                        <div class="input-aria full-input">
+                            <input type="password" name="password" formControlName="password" />
+                        </div>
+                        <span
+                            *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.required">Password
+                            is required</span>
+                        <span
+                            *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.minlength">Password
+                            must be minimum 6 charecters</span>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Confirm Password
+                        </label>
+                        <div class="input-aria full-input">
+                            <input type="password" name="conpassword" formControlName="cnfPassword" />
+                        </div>
+                        <span
+                            *ngIf="signupForm.controls.cnfPassword.touched && signupForm.controls.cnfPassword.errors?.required">Confirm
+                            password
+                            is required</span>
+                        <span
+                            *ngIf="signupForm.controls.cnfPassword.touched && signupForm.controls.cnfPassword.errors?.confirmedValidator">Confirm
+                            password
+                            is not matching</span>
+                    </div>
+                    <div class="form-group">
+                        <button (click)="addMoreSkill()" type="button" class="waves-effect">
+                            Add Skill
+                        </button>
+                    </div>
+                    <div formArrayName="skills">
+                        <div *ngFor="let skill of signupForm.controls.skills.controls; let i = index">
+                            <div [formGroupName]="i">
+                                <button type="button" (click)="removeSkill(i)" class="wave-effect">
+                                    X
+                                </button>
+                                <div class="form-group">
+                                    <label>
+                                        Skill
+                                    </label>
+                                    <div class="input-aria full-input">
+                                        <input type="text" name="skill" formControlName="skill" />
+                                    </div>
+                                    <span *ngIf="signupForm.controls.skills.controls[i].controls.skill.touched && signupForm.controls.skills.controls[i].controls.skill.errors?.required">Skill
+                                        is required</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        Description
+                                    </label>
+                                    <div class="input-aria full-input">
+                                        <input type="text" name="description" formControlName="description" />
+                                    </div>
+                                    <span
+                                        *ngIf="signupForm.controls.skills.controls[i].controls.description.touched && signupForm.controls.skills.controls[i].controls.description.errors?.required">Description
+                                        is required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="signupForm.invalid" class="no-vrfy waves-effect">
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+</div>
