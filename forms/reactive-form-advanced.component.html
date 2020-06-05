@@ -13,9 +13,10 @@
                         <div class="input-aria full-input">
                             <input type="text" name="name" formControlName="name" />
                         </div>
-                        <span *ngIf="signupForm.controls.name.touched && signupForm.controls.name.errors?.required">Name
+                        <span *ngIf="signupForm.get('name').touched && signupForm.get('name').errors?.required">Name
                             is required</span>
-                        <span *ngIf="signupForm.controls.name.touched && (signupForm.controls.name.errors?.whiteSpace && !signupForm.controls.name.errors?.required)">Name
+                        <span
+                            *ngIf="signupForm.get('name').touched && (signupForm.get('name').errors?.whiteSpace && !signupForm.get('name').errors?.required)">Name
                             can not be only space </span>
                     </div>
                     <div class="form-group">
@@ -25,10 +26,9 @@
                         <div class="input-aria full-input">
                             <input type="email" name="mail" formControlName="email" />
                         </div>
-                        <span
-                            *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.required">Email
+                        <span *ngIf="signupForm.get('email').touched && signupForm.get('email').errors?.required">Email
                             is required</span>
-                        <span *ngIf="signupForm.controls.email.touched && signupForm.controls.email.errors?.email">Valid
+                        <span *ngIf="signupForm.get('email').touched && signupForm.get('email').errors?.email">Valid
                             email is required</span>
                     </div>
                     <div class="form-group">
@@ -39,10 +39,10 @@
                             <input type="email" name="mail" formControlName="userName" />
                         </div>
                         <span
-                            *ngIf="signupForm.controls.userName.touched && signupForm.controls.userName.errors?.required">Username
+                            *ngIf="signupForm.get('userName').touched && signupForm.get('userName').errors?.required">Username
                             is required</span>
                         <span
-                            *ngIf="signupForm.controls.userName.touched && signupForm.controls.userName.errors?.cannotContainSpace">Username
+                            *ngIf="signupForm.get('userName').touched && signupForm.get('userName').errors?.cannotContainSpace">Username
                             can not contain space</span>
                     </div>
                     <div class="form-group">
@@ -53,10 +53,10 @@
                             <input type="password" name="password" formControlName="password" />
                         </div>
                         <span
-                            *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.required">Password
+                            *ngIf="signupForm.get('password').touched && signupForm.get('password').errors?.required">Password
                             is required</span>
                         <span
-                            *ngIf="signupForm.controls.password.touched && signupForm.controls.password.errors?.minlength">Password
+                            *ngIf="signupForm.get('password').touched && signupForm.get('password').errors?.minlength">Password
                             must be minimum 6 charecters</span>
                     </div>
                     <div class="form-group">
@@ -67,21 +67,21 @@
                             <input type="password" name="conpassword" formControlName="cnfPassword" />
                         </div>
                         <span
-                            *ngIf="signupForm.controls.cnfPassword.touched && signupForm.controls.cnfPassword.errors?.required">Confirm
+                            *ngIf="signupForm.get('cnfPassword').touched && signupForm.get('cnfPassword').errors?.required">Confirm
                             password
                             is required</span>
                         <span
-                            *ngIf="signupForm.controls.cnfPassword.touched && signupForm.controls.cnfPassword.errors?.confirmedValidator">Confirm
+                            *ngIf="signupForm.get('cnfPassword').touched && signupForm.get('cnfPassword').errors?.confirmedValidator">Confirm
                             password
                             is not matching</span>
                     </div>
                     <div class="form-group">
-                        <button (click)="addMoreSkill()" type="button" class="waves-effect">
+                        <button (click)="addMoreSkill('','')" type="button" class="waves-effect">
                             Add Skill
                         </button>
                     </div>
                     <div formArrayName="skills">
-                        <div *ngFor="let skill of signupForm.controls.skills.controls; let i = index">
+                        <div *ngFor="let skill of signupForm.get('skills')['controls']; let i = index">
                             <div [formGroupName]="i">
                                 <button type="button" (click)="removeSkill(i)" class="wave-effect">
                                     X
@@ -93,7 +93,8 @@
                                     <div class="input-aria full-input">
                                         <input type="text" name="skill" formControlName="skill" />
                                     </div>
-                                    <span *ngIf="signupForm.controls.skills.controls[i].controls.skill.touched && signupForm.controls.skills.controls[i].controls.skill.errors?.required">Skill
+                                    <span
+                                        *ngIf="signupForm.get('skills')['controls'][i]['controls'].skill.touched && signupForm.get('skills')['controls'][i].get('skill').errors?.required">Skill
                                         is required</span>
                                 </div>
                                 <div class="form-group">
@@ -104,7 +105,7 @@
                                         <input type="text" name="description" formControlName="description" />
                                     </div>
                                     <span
-                                        *ngIf="signupForm.controls.skills.controls[i].controls.description.touched && signupForm.controls.skills.controls[i].controls.description.errors?.required">Description
+                                        *ngIf="signupForm.get('skills')['controls'][i]['controls'].description.touched && signupForm.get('skills')['controls'][i].get('description').errors?.required">Description
                                         is required</span>
                                 </div>
                             </div>

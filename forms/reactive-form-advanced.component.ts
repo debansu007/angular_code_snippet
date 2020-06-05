@@ -11,8 +11,8 @@ export class DashboardComponent implements OnInit {
 
   signupForm: FormGroup;
   skillData: any = [
-    {skill: 'javaScript', description: 'Good...'},
-    {skill: 'Angular', description: 'Good...'},
+    { skill: 'javaScript', description: 'Good...' },
+    { skill: 'Angular', description: 'Good...' },
   ];
 
   constructor(
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
         this.addSkill('', '')
       ])
     }, {
-        validator: CustomValidator.confirmPassword('password', 'cnfPassword')
+      validator: CustomValidator.confirmPassword('password', 'cnfPassword')
     });
 
     this.signupForm.patchValue({
@@ -50,12 +50,12 @@ export class DashboardComponent implements OnInit {
   }
 
   addMoreSkill(skill, desc) {
-    const control = <FormArray>this.signupForm.controls["skills"];
+    const control = <FormArray>this.signupForm.get('skills');
     control.push(this.addSkill(skill, desc));
   }
 
   removeSkill(index: number) {
-    const control = <FormArray>this.signupForm.controls["skills"];
+    const control = <FormArray>this.signupForm.get("skills");
     control.removeAt(index);
   }
 
